@@ -7,7 +7,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import {FormControlLabel, FormLabel, Radio, RadioGroup, useTheme} from "@mui/material";
+import {Autocomplete, Chip, FormControlLabel, FormLabel, Radio, RadioGroup, useTheme} from "@mui/material";
 
 export default function NewPrButton() {
     const [open, setOpen] = React.useState(false);
@@ -98,6 +98,25 @@ export default function NewPrButton() {
                         <FormControlLabel value="closed" control={<Radio />} label="Closed" />
                         <FormControlLabel value="draft" control={<Radio />} label="Draft" />
                     </RadioGroup>
+                    <Autocomplete
+                        multiple
+                        id="tags-filled"
+                        freeSolo
+                        options={[]}
+                        renderTags={(value: readonly string[], getTagProps) =>
+                            value.map((option: string, index: number) => (
+                                <Chip variant="outlined" label={option} {...getTagProps({ index })} />
+                            ))
+                        }
+                        renderInput={(params) => (
+                            <TextField
+                                {...params}
+                                variant="filled"
+                                label="Labels"
+                                placeholder="Label"
+                            />
+                        )}
+                    />
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
