@@ -10,6 +10,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import {Autocomplete, Chip, FormControlLabel, FormLabel, Radio, RadioGroup, useTheme} from "@mui/material";
 import {useState} from "react";
+import AddIcon from '@mui/icons-material/Add';
+
 
 export default function NewPrButton() {
     const [open, setOpen] = React.useState(false);
@@ -29,7 +31,7 @@ export default function NewPrButton() {
 
     return (
         <div>
-            <Button variant="outlined" onClick={handleClickOpen}>
+            <Button variant="contained" endIcon={<AddIcon />} onClick={handleClickOpen}>
                 Create PR
             </Button>
             <Dialog open={open} onClose={handleClose} fullScreen={fullScreen}>
