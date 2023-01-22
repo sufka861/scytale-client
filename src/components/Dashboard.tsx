@@ -19,7 +19,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import {mainListItems} from './listItems';
 import {PrTable} from "./PrTable";
-import NewPrButton from "./NewPrButton";
+import NewPrButton from "./PrForm";
 
 
 function Copyright(props: any) {

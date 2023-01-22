@@ -20,10 +20,9 @@ import {
 } from "@mui/material";
 import {useState} from "react";
 import AddIcon from '@mui/icons-material/Add';
-import {log} from "util";
 
 
-export default function NewPrButton() {
+export default function PrForm() {
     const [open, setOpen] = React.useState(false);
     const defaultValues = {
         title: '',
@@ -34,7 +33,7 @@ export default function NewPrButton() {
         labels: ['']
     };
     const {handleSubmit, reset, setValue, control} = useForm({defaultValues});
-    const [data, setData] = useState(null);
+    // const [data, setData] = useState(null);
 
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
@@ -47,10 +46,19 @@ export default function NewPrButton() {
         setOpen(false);
     };
     const sendForm = (values: any) => {
-        console.log(values)
-        setData(values);
-        // console.log({data})
-        // sendData()
+        const dataObj = {
+            title: values.title,
+            description: values.description,
+            author: {
+                firstName: values.firstName,
+                lastName: values.lastName
+            },
+            status: values.status,
+            labels: values.labels.filter((label: string) => label != '')
+        }
+        console.log(dataObj)
+        // setData(dataObj);
+
     }
     const radioGroup = useRadioGroup();
 
@@ -135,7 +143,7 @@ export default function NewPrButton() {
                                 <RadioGroup
                                     row
                                     aria-labelledby="demo-row-radio-buttons-group-label"
-                                    defaultValue="open"
+                                    // defaultValue="open"
                                     {...field}
                                 >
                                     <FormControlLabel value="open" control={<Radio/>} label="Open"/>
@@ -145,6 +153,8 @@ export default function NewPrButton() {
                             )}
                         />
                         <Controller
+                            name="labels"
+                            control={control}
                             render={({field}) => (
                                 <Autocomplete
                                     {...field}
@@ -168,8 +178,6 @@ export default function NewPrButton() {
                                     onChange={(_, data) => field.onChange(data)}
                                 />
                             )}
-                            name="labels"
-                            control={control}
                         />
                     </DialogContent>
                     <DialogActions>
