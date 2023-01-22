@@ -21,7 +21,7 @@ type PullRequest = {
 };
 
 export const PrTable: React.FC = () => {
-    const {data, status} = useQuery('prs',fetchPullRequests)
+    const {data, status} = useQuery('prs', fetchPullRequests)
     if (status === 'error')
         return <h2>Error fetching data from DB</h2>
     if (status === 'loading')
@@ -54,13 +54,13 @@ export const PrTable: React.FC = () => {
         id: row._id
     }));
     return (
-            <Box sx={{ height: 400, width: '90%' }} p={4}>
+        <Box sx={{height: 400, width: '90%'}} p={4}>
             <DataGrid
                 rows={rows}
                 columns={columns}
                 pageSize={10}
                 rowsPerPageOptions={[10]}
             />
-            </Box>
+        </Box>
     );
 };

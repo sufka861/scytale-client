@@ -8,14 +8,32 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import {Autocomplete, Chip, FormControlLabel, FormLabel, Radio, RadioGroup, useTheme} from "@mui/material";
+import {
+    Autocomplete,
+    Chip,
+    FormControlLabel,
+    FormLabel,
+    Radio,
+    RadioGroup,
+    useRadioGroup,
+    useTheme
+} from "@mui/material";
 import {useState} from "react";
 import AddIcon from '@mui/icons-material/Add';
+import {log} from "util";
 
 
 export default function NewPrButton() {
     const [open, setOpen] = React.useState(false);
-    const {handleSubmit, reset, setValue, control} = useForm();
+    const defaultValues = {
+        title: '',
+        description: '',
+        firstName: '',
+        lastName: '',
+        status: 'Open',
+        labels: ['']
+    };
+    const {handleSubmit, reset, setValue, control} = useForm({defaultValues});
     const [data, setData] = useState(null);
 
     const theme = useTheme();
@@ -28,115 +46,130 @@ export default function NewPrButton() {
     const handleClose = () => {
         setOpen(false);
     };
+    const sendForm = (values: any) => {
+        console.log(values)
+        setData(values);
+        // console.log({data})
+        // sendData()
+    }
+    const radioGroup = useRadioGroup();
 
     return (
         <div>
-            <Button variant="contained" endIcon={<AddIcon />} onClick={handleClickOpen}>
+            <Button variant="contained" endIcon={<AddIcon/>} onClick={handleClickOpen}>
                 Create PR
             </Button>
             <Dialog open={open} onClose={handleClose} fullScreen={fullScreen}>
-                <form onSubmit={handleSubmit(({data}) => {
-                    setData(data);
-                    console.log(data)
-                })}>
+                <form onSubmit={handleSubmit(sendForm)}>
                     <DialogTitle>Create new pull request</DialogTitle>
                     <DialogContent>
                         <DialogContentText>
                             Please fill out the pull request details
                         </DialogContentText>
                         <Controller
-                            render={({field}) => <TextField {...field}
-                                                            required
-                                                            autoFocus
-                                                            // value={}
-                                                            margin="dense"
-                                                            id="title"
-                                                            label="Title"
-                                                            type="string"
-                                                            fullWidth
-                                                            variant="standard"
-                            />}
-                            name="TextField"
+                            name="title"
                             control={control}
+                            render={({field}) => <TextField
+                                {...field}
+                                required
+                                autoFocus
+                                margin="dense"
+                                id="title"
+                                label="Title"
+                                type="string"
+                                fullWidth
+                                variant="standard"
+                            />}
                         />
-                        {/*<TextField*/}
-                        {/*    required*/}
-                        {/*    autoFocus*/}
-                        {/*    margin="dense"*/}
-                        {/*    id="title"*/}
-                        {/*    // value={value}*/}
-                        {/*    label="Title"*/}
-                        {/*    type="string"*/}
-                        {/*    fullWidth*/}
-                        {/*    variant="standard"*/}
-                        {/*    // onChange={handleChange}*/}
-                        {/*/>*/}
+                        <Controller
+                            name="description"
+                            control={control}
+                            render={({field}) => <TextField
+                                {...field}
+                                autoFocus
+                                margin="dense"
+                                id="description"
+                                label="Description"
+                                type="string"
+                                fullWidth
+                                variant="standard"
+                                multiline
+                                maxRows={4}
+                            />}
+                        />
 
-                        <TextField
-                            margin="dense"
-                            id="description"
-                            // value={value}
-                            label="Description"
-                            type="string"
-                            fullWidth
-                            variant="standard"
-                            multiline
-                            maxRows={4}
-                            // onChange={handleChange}
+                        <Controller
+                            name="firstName"
+                            control={control}
+                            render={({field}) => <TextField
+                                {...field}
+                                required
+                                margin="dense"
+                                id="firstName"
+                                label="First Name"
+                                type="string"
+                                fullWidth
+                                variant="standard"
+                            />}
                         />
-                        <TextField
-                            required
-                            margin="dense"
-                            id="firstName"
-                            // value={value}
-                            label="First Name"
-                            type="string"
-                            fullWidth
-                            variant="standard"
-                            // onChange={handleChange}
-                        />
-                        <TextField
-                            required
-                            margin="dense"
-                            id="lastName"
-                            // value={value}
-                            label="Last name"
-                            type="string"
-                            fullWidth
-                            variant="standard"
-                            // onChange={handleChange}
+                        <Controller
+                            name="lastName"
+                            control={control}
+                            render={({field}) => <TextField
+                                {...field}
+                                required
+                                margin="dense"
+                                id="lastName"
+                                label="Last name"
+                                type="string"
+                                fullWidth
+                                variant="standard"
+                            />}
                         />
                         <FormLabel id="demo-row-radio-buttons-group-label">Status</FormLabel>
-                        <RadioGroup
-                            row
-                            aria-labelledby="demo-row-radio-buttons-group-label"
-                            name="row-radio-buttons-group"
+                        <Controller
+                            name="status"
+                            control={control}
                             defaultValue="open"
-                            // value={value}
-                            // onChange={handleChange}
-                        >
-                            <FormControlLabel value="open" control={<Radio/>} label="Open"/>
-                            <FormControlLabel value="closed" control={<Radio/>} label="Closed"/>
-                            <FormControlLabel value="draft" control={<Radio/>} label="Draft"/>
-                        </RadioGroup>
-                        <Autocomplete
-                            multiple
-                            id="tags-filled"
-                            freeSolo
-                            options={[]}
-                            renderTags={(value: readonly string[], getTagProps) =>
-                                value.map((option: string, index: number) => (
-                                    <Chip variant="outlined" label={option} {...getTagProps({index})} />
-                                ))
-                            }
-                            renderInput={(params) => (
-                                <TextField
-                                    {...params}
-                                    variant="filled"
-                                    label="Labels"
-                                    placeholder="Label"
+                            render={({field}) => (
+                                <RadioGroup
+                                    row
+                                    aria-labelledby="demo-row-radio-buttons-group-label"
+                                    defaultValue="open"
+                                    {...field}
+                                >
+                                    <FormControlLabel value="open" control={<Radio/>} label="Open"/>
+                                    <FormControlLabel value="closed" control={<Radio/>} label="Closed"/>
+                                    <FormControlLabel value="draft" control={<Radio/>} label="Draft"/>
+                                </RadioGroup>
+                            )}
+                        />
+                        <Controller
+                            render={({field}) => (
+                                <Autocomplete
+                                    {...field}
+                                    multiple
+                                    id="tags-filled"
+                                    freeSolo
+                                    options={[]}
+                                    renderTags={(value: readonly string[], getTagProps) =>
+                                        value.map((option: string, index: number) => (
+                                            <Chip variant="outlined" label={option} {...getTagProps({index})} />
+                                        ))
+                                    }
+                                    renderInput={(params) => (
+                                        <TextField
+                                            {...params}
+                                            variant="filled"
+                                            label="Labels"
+                                            placeholder="Label"
+                                        />
+                                    )}
+                                    onChange={(_, data) => field.onChange(data)}
                                 />
                             )}
+                            name="labels"
+                            control={control}
                         />
                     </DialogContent>
                     <DialogActions>
