@@ -8,7 +8,7 @@ import NewPrButton from "./components/NewPrButton";
 const queryClient = new QueryClient();
 
 function App() {
-  return (
+    return (
     <div className="App">
         <QueryClientProvider client={queryClient}>
             <NewPrButton />
