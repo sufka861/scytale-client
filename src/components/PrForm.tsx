@@ -24,7 +24,6 @@ import {useMutation, useQueryClient} from "react-query";
 import axios from "axios";
 import {PrTable} from "./PrTable";
 
-
 export default function PrForm() {
     const [open, setOpen] = React.useState(false);
     const defaultValues = {
@@ -36,7 +35,6 @@ export default function PrForm() {
         labels: ['']
     };
     const {handleSubmit, reset, setValue, control} = useForm({defaultValues});
-    // const [data, setData] = useState(null);
 
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
@@ -52,19 +50,17 @@ export default function PrForm() {
     const addPr = (data: any) => {
         return axios.post(`http://localhost:4000/prs`, data)
             .then(function (response) {
-                console.log(response);
+                    reset(defaultValues);
             })
             .catch(function (error) {
                 console.log(error);
             });
     }
 
-
     const useAddPr = () => {
         const queryClient = useQueryClient()
         return useMutation(addPr, {
             onSuccess: (data, variables) => {
-                console.log("PR added to DB:" + variables);
                 queryClient.invalidateQueries(["prs"]);
             },
             onError: (error) => {

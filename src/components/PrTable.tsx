@@ -59,12 +59,12 @@ export const PrTable: React.FC = () => {
         id: row._id
     }));
     return (
-        <Box sx={{height: 600, width: '90%'}} p={8}>
+        <Box sx={{height: 500, width: '90%'}} p={8}>
             <DataGrid
                 rows={rows}
                 columns={columns}
-                pageSize={20}
-                rowsPerPageOptions={[20]}
+                pageSize={10}
+                rowsPerPageOptions={[10]}
             />
         </Box>
     );
