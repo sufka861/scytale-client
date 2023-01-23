@@ -19,8 +19,10 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import {mainListItems} from './listItems';
 import {PrTable} from "./PrTable";
-import NewPrButton from "./PrForm";
-
+import PrForm from "./PrForm";
+import Image from 'mui-image'
+import {Avatar} from "@mui/material";
+import scytaleImage from "../scytaleNameAndLogo.png"
 
 function Copyright(props: any) {
     return (
@@ -100,7 +102,7 @@ function DashboardContent() {
                 <AppBar position="absolute" open={open}>
                     <Toolbar
                         sx={{
-                            pr: '24px', // keep right padding when drawer closed
+                            pr: '24px',
                         }}
                     >
                         <IconButton
@@ -122,7 +124,7 @@ function DashboardContent() {
                             noWrap
                             sx={{flexGrow: 1}}
                         >
-                            Scytale Pull Requests
+                            <Image src={scytaleImage} height="15%" width="15%"/>
                         </Typography>
                         <IconButton color="inherit">
                             <Badge badgeContent={4} color="secondary">
@@ -165,10 +167,11 @@ function DashboardContent() {
                     <Toolbar/>
                     <Container maxWidth="lg" sx={{mt: 4, mb: 4}}>
                         <Grid container spacing={3}>
-
                             <Grid item xs={12}>
-                                <Paper sx={{p: 2, display: 'flex', flexDirection: 'column'}}>
-                                    <NewPrButton/>
+                                <Paper sx={{p: 4, display: 'flex', flexDirection: 'column'}}>
+                                    <Box component="span" sx={{pb: 2}}>
+                                        <PrForm/>
+                                    </Box>
                                     <PrTable/>
                                 </Paper>
                             </Grid>

@@ -59,7 +59,7 @@ export const PrTable: React.FC = () => {
         id: row._id
     }));
     return (
-        <Box sx={{height: 500, width: '90%'}} p={8}>
+        <Box sx={{height: 500, width: '100%'}}>
             <DataGrid
                 rows={rows}
                 columns={columns}

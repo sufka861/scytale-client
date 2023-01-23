@@ -88,7 +88,7 @@ export default function PrForm() {
 
     return (
         <div>
-            <Button variant="contained" endIcon={<AddIcon/>} onClick={handleClickOpen}>
+            <Button variant="contained" endIcon={<AddIcon/>} onClick={handleClickOpen} >
                 Create PR
             </Button>
             <Dialog open={open} onClose={handleClose} fullScreen={fullScreen}>
