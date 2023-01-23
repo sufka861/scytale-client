@@ -20,6 +20,8 @@ import {
 } from "@mui/material";
 import {useState} from "react";
 import AddIcon from '@mui/icons-material/Add';
+import {useMutation} from "react-query";
+import axios from "axios";
 
 
 export default function PrForm() {
@@ -45,8 +47,23 @@ export default function PrForm() {
     const handleClose = () => {
         setOpen(false);
     };
+
+    const addPr = (data: any) => {
+        return axios.post(`http://localhost:4000/prs`, data)
+            .then(function (response) {
+                console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+    const useAddPr = () => {
+        return useMutation(addPr)
+    }
+    const {mutate} = useAddPr();
+
     const sendForm = (values: any) => {
-        const dataObj = {
+        const dataObjToPost = {
             title: values.title,
             description: values.description,
             author: {
@@ -56,10 +73,10 @@ export default function PrForm() {
             status: values.status,
             labels: values.labels.filter((label: string) => label != '')
         }
-        console.log(dataObj)
-        // setData(dataObj);
-
+        console.log(dataObjToPost);
+        mutate(dataObjToPost);
     }
+
     const radioGroup = useRadioGroup();
 
     return (
@@ -138,7 +155,7 @@ export default function PrForm() {
                         <Controller
                             name="status"
                             control={control}
-                            defaultValue="open"
+                            defaultValue="Open"
                             render={({field}) => (
                                 <RadioGroup
                                     row
@@ -146,9 +163,9 @@ export default function PrForm() {
                                     // defaultValue="open"
                                     {...field}
                                 >
-                                    <FormControlLabel value="open" control={<Radio/>} label="Open"/>
-                                    <FormControlLabel value="closed" control={<Radio/>} label="Closed"/>
-                                    <FormControlLabel value="draft" control={<Radio/>} label="Draft"/>
+                                    <FormControlLabel value="Open" control={<Radio/>} label="Open"/>
+                                    <FormControlLabel value="Closed" control={<Radio/>} label="Closed"/>
+                                    <FormControlLabel value="Draft" control={<Radio/>} label="Draft"/>
                                 </RadioGroup>
                             )}
                         />
