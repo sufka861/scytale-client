@@ -3,6 +3,7 @@ import {DataGrid, GridValueGetterParams} from '@mui/x-data-grid';
 import {Box} from "@mui/material";
 import {useQuery} from "react-query";
 import axios from "axios";
+import moment from "moment-timezone"
 
 type Author = {
     firstName: string;
@@ -40,7 +41,7 @@ export const PrTable: React.FC = () => {
             valueGetter: (params: GridValueGetterParams) =>
                 `${params.row.author.firstName || ''} ${params.row.author.lastName || ''}`,
         },
-        {field: "createdAt", headerName: "Created Date"},
+        {field: "createdAt", headerName: "Created Date", width: 300},
         {field: "prNumber", headerName: "Number"},
         {field: "status", headerName: "Status"},
         {field: "labels", headerName: "Labels"},
@@ -51,7 +52,7 @@ export const PrTable: React.FC = () => {
         title: row.title,
         description: row.description,
         author: row.author,
-        createdAt: row.createdAt,
+        createdAt: moment.tz(row.createdAt.toString(), "Israel"),
         prNumber: row.prNumber,
         status: row.status,
         labels: row.labels,
