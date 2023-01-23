@@ -5,6 +5,7 @@ import {useQuery} from "react-query";
 import axios from "axios";
 import moment from "moment-timezone"
 import renderCellExpand from "./renderCellExpand";
+import LabelsArray from "./LabelsArray";
 
 type Author = {
     firstName: string;
@@ -83,6 +84,7 @@ export const PrTable: React.FC = () => {
                 }
             }
         },
+        // {field: "labels", headerName: "Labels", renderCell: LabelsArray},
         {field: "labels", headerName: "Labels", renderCell: renderCellExpand},
         {field: "id", headerName: "ID", renderCell: renderCellExpand, hide: true},
     ];
