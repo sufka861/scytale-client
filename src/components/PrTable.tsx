@@ -1,6 +1,6 @@
-import React from 'react';
-import {DataGrid, GridColDef, GridValueGetterParams} from '@mui/x-data-grid';
-import {Box} from "@mui/material";
+import React, {useState} from 'react';
+import {DataGrid, GridColDef, GridRenderCellParams, GridValueGetterParams} from '@mui/x-data-grid';
+import {Box, Chip} from "@mui/material";
 import {useQuery} from "react-query";
 import axios from "axios";
 import moment from "moment-timezone"
@@ -34,8 +34,8 @@ export const PrTable: React.FC = () => {
         return <h2>Loading...</h2>
 
     const columns: GridColDef[] = [
-        {field: "title", headerName: "Title", width: 150, renderCell: renderCellExpand},
-        {field: "description", headerName: "Description", width: 200, renderCell: renderCellExpand},
+        {field: "title", headerName: "Title", minWidth: 150, renderCell: renderCellExpand},
+        {field: "description", headerName: "Description", minWidth: 200, renderCell: renderCellExpand},
         {
             field: "author",
             headerName: "Author",
@@ -43,11 +43,48 @@ export const PrTable: React.FC = () => {
                 `${params.row.author.firstName || ''} ${params.row.author.lastName || ''}`,
             renderCell: renderCellExpand
         },
-        {field: "createdAt", headerName: "Created Date", width: 140, renderCell: renderCellExpand},
-        {field: "prNumber", headerName: "Number", width: 70, type: 'number', renderCell: renderCellExpand},
-        {field: "status", headerName: "Status", type: 'singleSelect', valueOptions: ['Open', 'Closed', 'Draft'], renderCell: renderCellExpand},
+        {field: "createdAt", headerName: "Created Date", minWidth: 140, renderCell: renderCellExpand},
+        {field: "prNumber", headerName: "Number", minWidth: 70, type: 'number', renderCell: renderCellExpand},
+        {
+            field: "status", headerName: "Status", type: 'singleSelect', valueOptions: ['Open', 'Closed', 'Draft'],
+            renderCell: (params: GridRenderCellParams) => {
+                if (params.value == "Open") {
+                    return (
+                        <div>
+                            <Chip
+                                label={params.value}
+                                color="primary"
+                                style={{margin: 'auto'}}
+                            />
+                        </div>
+                    )
+                }
+                if (params.value == "Closed") {
+                    return (
+                        <div>
+                            <Chip
+                                label={params.value}
+                                color="success"
+                                style={{margin: 'auto'}}
+                            />
+                        </div>
+                    )
+                }
+                if (params.value == "Draft") {
+                    return (
+                        <div>
+                            <Chip
+                                label={params.value}
+                                color="default"
+                                style={{margin: 'auto'}}
+                            />
+                        </div>
+                    )
+                }
+            }
+        },
         {field: "labels", headerName: "Labels", renderCell: renderCellExpand},
-        {field: "id", headerName: "ID", renderCell: renderCellExpand},
+        {field: "id", headerName: "ID", renderCell: renderCellExpand, hide: true},
     ];
 
     const rows: any = data?.data.map((row: PullRequest) => ({

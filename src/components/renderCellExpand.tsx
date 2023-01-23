@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import Popper from '@mui/material/Popper';
-import {DataGrid, GridColDef, GridRenderCellParams} from '@mui/x-data-grid';
+import {GridRenderCellParams} from '@mui/x-data-grid';
 
 interface GridCellExpandProps {
     value: string;
@@ -92,7 +92,7 @@ const GridCellExpand = React.memo(function GridCellExpand(
                 <Popper
                     open={showFullCell && anchorEl !== null}
                     anchorEl={anchorEl}
-                    style={{width, marginLeft: -17}}
+                    style={{width}}
                 >
                     <Paper
                         elevation={1}
