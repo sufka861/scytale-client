@@ -2,7 +2,7 @@ import React from 'react';
 import {DataGrid, GridValueGetterParams} from '@mui/x-data-grid';
 import {Box} from "@mui/material";
 import {useQuery} from "react-query";
-import fetchPullRequests from "./FetchPullRequests";
+import axios from "axios";
 
 type Author = {
     firstName: string;
@@ -19,6 +19,10 @@ type PullRequest = {
     labels: Array<string>;
     _id: string
 };
+
+const fetchPullRequests = async () => {
+    return axios.get('http://localhost:4000/prs');
+}
 
 export const PrTable: React.FC = () => {
     const {data, status} = useQuery('prs', fetchPullRequests)
@@ -54,12 +58,12 @@ export const PrTable: React.FC = () => {
         id: row._id
     }));
     return (
-        <Box sx={{height: 400, width: '90%'}} p={4}>
+        <Box sx={{height: 600, width: '90%'}} p={8}>
             <DataGrid
                 rows={rows}
                 columns={columns}
-                pageSize={10}
-                rowsPerPageOptions={[10]}
+                pageSize={20}
+                rowsPerPageOptions={[20]}
             />
         </Box>
     );

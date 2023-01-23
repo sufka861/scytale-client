@@ -20,8 +20,9 @@ import {
 } from "@mui/material";
 import {useState} from "react";
 import AddIcon from '@mui/icons-material/Add';
-import {useMutation} from "react-query";
+import {useMutation, useQueryClient} from "react-query";
 import axios from "axios";
+import {PrTable} from "./PrTable";
 
 
 export default function PrForm() {
@@ -57,8 +58,19 @@ export default function PrForm() {
                 console.log(error);
             });
     }
+
+
     const useAddPr = () => {
-        return useMutation(addPr)
+        const queryClient = useQueryClient()
+        return useMutation(addPr, {
+            onSuccess: (data, variables) => {
+                console.log("PR added to DB:" + variables);
+                queryClient.invalidateQueries(["prs"]);
+            },
+            onError: (error) => {
+                console.log(error);
+            },
+        })
     }
     const {mutate} = useAddPr();
 
@@ -73,7 +85,6 @@ export default function PrForm() {
             status: values.status,
             labels: values.labels.filter((label: string) => label != '')
         }
-        console.log(dataObjToPost);
         mutate(dataObjToPost);
     }
 
