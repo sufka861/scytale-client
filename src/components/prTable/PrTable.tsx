@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
     DataGrid,
     GridColDef,
@@ -70,16 +70,25 @@ export const PrTable: React.FC = () => {
             type: 'singleSelect',
             valueOptions: ['Open', 'Closed', 'Draft'],
             renderCell: (params: GridRenderCellParams) => {
-                const color = params.value == "Open" ? "primary" : params.value == "Closed" ? "success" : "default" ;
+                const color =
+                    params.value == 'Open'
+                        ? 'primary'
+                        : params.value == 'Closed'
+                        ? 'success'
+                        : 'default';
                 return (
-                        <div>
-                            <Chip label={params.value} color={color} style={{ margin: 'auto' }} />
-                        </div>
-                    );
+                    <div>
+                        <Chip label={params.value} color={color} style={{ margin: 'auto' }} />
+                    </div>
+                );
             },
         },
-        { field: 'labels', headerName: 'Labels', renderCell: renderCellExpand,
-            valueGetter: (params: GridValueGetterParams) => params.row.labels.join(', ')},
+        {
+            field: 'labels',
+            headerName: 'Labels',
+            renderCell: renderCellExpand,
+            valueGetter: (params: GridValueGetterParams) => params.row.labels.join(', '),
+        },
         { field: 'id', headerName: 'ID', renderCell: renderCellExpand, hide: true },
     ];
 

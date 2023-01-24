@@ -1,5 +1,5 @@
-import React from "react";
-import {useForm, Controller} from 'react-hook-form';
+import React from 'react';
+import { useForm, Controller } from 'react-hook-form';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
@@ -7,7 +7,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import {NewPrButton} from './NewPrButton'
+import { NewPrButton } from './NewPrButton';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import {
     Autocomplete,
@@ -19,19 +19,19 @@ import {
     useRadioGroup,
     useTheme,
 } from '@mui/material';
-import {useState} from 'react';
+import { useState } from 'react';
 import AddIcon from '@mui/icons-material/Add';
-import {useMutation, useQueryClient} from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import axios from 'axios';
 
 interface Props {
-    open: boolean
-    setOpen: (state: boolean) => void
-    handleOpen: () => void
-    handleClose: () => void
+    open: boolean;
+    setOpen: (state: boolean) => void;
+    handleOpen: () => void;
+    handleClose: () => void;
 }
 
-export const NewPrForm: React.FC<Props> = ({open, setOpen, handleOpen, handleClose}) => {
+export const NewPrForm: React.FC<Props> = ({ open, setOpen, handleOpen, handleClose }) => {
     const defaultValues = {
         title: '',
         description: '',
@@ -40,11 +40,10 @@ export const NewPrForm: React.FC<Props> = ({open, setOpen, handleOpen, handleClo
         status: 'Open',
         labels: [''],
     };
-    const {handleSubmit, reset, setValue, control} = useForm({defaultValues});
+    const { handleSubmit, reset, setValue, control } = useForm({ defaultValues });
 
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
-
 
     const addPr = (data: any) => {
         return axios
@@ -68,7 +67,7 @@ export const NewPrForm: React.FC<Props> = ({open, setOpen, handleOpen, handleClo
             },
         });
     };
-    const {mutate} = useAddPr();
+    const { mutate } = useAddPr();
 
     const sendForm = (values: any) => {
         const dataObjToPost = {
@@ -90,13 +89,11 @@ export const NewPrForm: React.FC<Props> = ({open, setOpen, handleOpen, handleClo
             <form onSubmit={handleSubmit(sendForm)}>
                 <DialogTitle>Create new pull request</DialogTitle>
                 <DialogContent>
-                    <DialogContentText>
-                        Please fill out the pull request details
-                    </DialogContentText>
+                    <DialogContentText>Please fill out the pull request details</DialogContentText>
                     <Controller
                         name='title'
                         control={control}
-                        render={({field}) => (
+                        render={({ field }) => (
                             <TextField
                                 {...field}
                                 required
@@ -113,7 +110,7 @@ export const NewPrForm: React.FC<Props> = ({open, setOpen, handleOpen, handleClo
                     <Controller
                         name='description'
                         control={control}
-                        render={({field}) => (
+                        render={({ field }) => (
                             <TextField
                                 {...field}
                                 autoFocus
@@ -132,7 +129,7 @@ export const NewPrForm: React.FC<Props> = ({open, setOpen, handleOpen, handleClo
                     <Controller
                         name='firstName'
                         control={control}
-                        render={({field}) => (
+                        render={({ field }) => (
                             <TextField
                                 {...field}
                                 required
@@ -148,7 +145,7 @@ export const NewPrForm: React.FC<Props> = ({open, setOpen, handleOpen, handleClo
                     <Controller
                         name='lastName'
                         control={control}
-                        render={({field}) => (
+                        render={({ field }) => (
                             <TextField
                                 {...field}
                                 required
@@ -166,35 +163,27 @@ export const NewPrForm: React.FC<Props> = ({open, setOpen, handleOpen, handleClo
                         name='status'
                         control={control}
                         defaultValue='Open'
-                        render={({field}) => (
+                        render={({ field }) => (
                             <RadioGroup
                                 row
                                 aria-labelledby='demo-row-radio-buttons-group-label'
                                 // defaultValue="open"
                                 {...field}
                             >
-                                <FormControlLabel
-                                    value='Open'
-                                    control={<Radio/>}
-                                    label='Open'
-                                />
+                                <FormControlLabel value='Open' control={<Radio />} label='Open' />
                                 <FormControlLabel
                                     value='Closed'
-                                    control={<Radio/>}
+                                    control={<Radio />}
                                     label='Closed'
                                 />
-                                <FormControlLabel
-                                    value='Draft'
-                                    control={<Radio/>}
-                                    label='Draft'
-                                />
+                                <FormControlLabel value='Draft' control={<Radio />} label='Draft' />
                             </RadioGroup>
                         )}
                     />
                     <Controller
                         name='labels'
                         control={control}
-                        render={({field}) => (
+                        render={({ field }) => (
                             <Autocomplete
                                 {...field}
                                 multiple
@@ -206,7 +195,7 @@ export const NewPrForm: React.FC<Props> = ({open, setOpen, handleOpen, handleClo
                                         <Chip
                                             variant='outlined'
                                             label={option}
-                                            {...getTagProps({index})}
+                                            {...getTagProps({ index })}
                                         />
                                     ))
                                 }
@@ -226,10 +215,10 @@ export const NewPrForm: React.FC<Props> = ({open, setOpen, handleOpen, handleClo
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
                     <Button onClick={handleClose} type='submit'>
-                        Create PR
+                        Create pull request
                     </Button>
                 </DialogActions>
             </form>
         </Dialog>
-    )
-}
+    );
+};

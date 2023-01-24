@@ -1,7 +1,7 @@
-import Button from "@mui/material/Button";
-import AddIcon from "@mui/icons-material/Add";
-import React from "react";
-import {NewPrForm} from "./NewPrForm";
+import Button from '@mui/material/Button';
+import AddIcon from '@mui/icons-material/Add';
+import React from 'react';
+import { NewPrForm } from './NewPrForm';
 
 export const NewPrButton: React.FC = () => {
     const [open, setOpen] = React.useState(false);
@@ -13,15 +13,20 @@ export const NewPrButton: React.FC = () => {
     };
     return (
         <div>
-            <Button color = "success" variant='contained' endIcon={<AddIcon/>} onClick={handleClickOpen}>
+            <Button
+                color='success'
+                variant='contained'
+                endIcon={<AddIcon />}
+                onClick={handleClickOpen}
+            >
                 New pull request
             </Button>
             <NewPrForm
-                open = {open}
-                setOpen = {setOpen}
-                handleOpen = {handleClickOpen}
-                handleClose = {handleClose}
+                open={open}
+                setOpen={setOpen}
+                handleOpen={handleClickOpen}
+                handleClose={handleClose}
             />
         </div>
-    )
-}
+    );
+};
