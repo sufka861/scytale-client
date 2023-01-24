@@ -7,7 +7,6 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import { NewPrButton } from './NewPrButton';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import {
     Autocomplete,
@@ -16,22 +15,17 @@ import {
     FormLabel,
     Radio,
     RadioGroup,
-    useRadioGroup,
     useTheme,
 } from '@mui/material';
-import { useState } from 'react';
-import AddIcon from '@mui/icons-material/Add';
 import { useMutation, useQueryClient } from 'react-query';
 import axios from 'axios';
 
 interface Props {
     open: boolean;
-    setOpen: (state: boolean) => void;
-    handleOpen: () => void;
     handleClose: () => void;
 }
 
-export const NewPrForm: React.FC<Props> = ({ open, setOpen, handleOpen, handleClose }) => {
+export const NewPrForm: React.FC<Props> = ({ open, handleClose }) => {
     const defaultValues = {
         title: '',
         description: '',
@@ -40,7 +34,7 @@ export const NewPrForm: React.FC<Props> = ({ open, setOpen, handleOpen, handleCl
         status: 'Open',
         labels: [''],
     };
-    const { handleSubmit, reset, setValue, control } = useForm({ defaultValues });
+    const { handleSubmit, reset, control } = useForm({ defaultValues });
 
     const theme = useTheme();
     const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
@@ -48,7 +42,7 @@ export const NewPrForm: React.FC<Props> = ({ open, setOpen, handleOpen, handleCl
     const addPr = (data: any) => {
         return axios
             .post(`http://localhost:4000/prs`, data)
-            .then(function (response) {
+            .then(function () {
                 reset(defaultValues);
             })
             .catch(function (error) {
@@ -59,7 +53,7 @@ export const NewPrForm: React.FC<Props> = ({ open, setOpen, handleOpen, handleCl
     const useAddPr = () => {
         const queryClient = useQueryClient();
         return useMutation(addPr, {
-            onSuccess: (data, variables) => {
+            onSuccess: () => {
                 queryClient.invalidateQueries(['prs']);
             },
             onError: (error) => {
@@ -83,7 +77,6 @@ export const NewPrForm: React.FC<Props> = ({ open, setOpen, handleOpen, handleCl
         mutate(dataObjToPost);
     };
 
-    const radioGroup = useRadioGroup();
     return (
         <Dialog open={open} onClose={handleClose} fullScreen={fullScreen}>
             <form onSubmit={handleSubmit(sendForm)}>

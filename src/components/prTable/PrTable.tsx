@@ -92,7 +92,7 @@ export const PrTable: React.FC = () => {
         { field: 'id', headerName: 'ID', renderCell: renderCellExpand, hide: true },
     ];
 
-    const rows: any = data?.data.map((row: PullRequest) => ({
+    const rows : Array<PullRequest> = data?.data.map((row: PullRequest) => ({
         title: row.title,
         description: row.description,
         author: row.author,

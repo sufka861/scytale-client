@@ -23,8 +23,6 @@ export const NewPrButton: React.FC = () => {
             </Button>
             <NewPrForm
                 open={open}
-                setOpen={setOpen}
-                handleOpen={handleClickOpen}
                 handleClose={handleClose}
             />
         </div>
