@@ -11,7 +11,6 @@ function App() {
         <div className='App'>
             <QueryClientProvider client={queryClient}>
                 <Dashboard />
-                <ReactQueryDevtools />
             </QueryClientProvider>
         </div>
     );

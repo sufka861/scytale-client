@@ -10,7 +10,6 @@ import { useQuery } from 'react-query';
 import axios from 'axios';
 import moment from 'moment-timezone';
 import renderCellExpand from './renderCellExpand';
-import LabelsArray from './LabelsArray';
 
 type Author = {
     firstName: string;
@@ -71,31 +70,16 @@ export const PrTable: React.FC = () => {
             type: 'singleSelect',
             valueOptions: ['Open', 'Closed', 'Draft'],
             renderCell: (params: GridRenderCellParams) => {
-                if (params.value == 'Open') {
-                    return (
+                const color = params.value == "Open" ? "primary" : params.value == "Closed" ? "success" : "default" ;
+                return (
                         <div>
-                            <Chip label={params.value} color='primary' style={{ margin: 'auto' }} />
+                            <Chip label={params.value} color={color} style={{ margin: 'auto' }} />
                         </div>
                     );
-                }
-                if (params.value == 'Closed') {
-                    return (
-                        <div>
-                            <Chip label={params.value} color='success' style={{ margin: 'auto' }} />
-                        </div>
-                    );
-                }
-                if (params.value == 'Draft') {
-                    return (
-                        <div>
-                            <Chip label={params.value} color='default' style={{ margin: 'auto' }} />
-                        </div>
-                    );
-                }
             },
         },
-        // {field: "labels", headerName: "Labels", renderCell: LabelsArray},
-        { field: 'labels', headerName: 'Labels', renderCell: renderCellExpand },
+        { field: 'labels', headerName: 'Labels', renderCell: renderCellExpand,
+            valueGetter: (params: GridValueGetterParams) => params.row.labels.join(', ')},
         { field: 'id', headerName: 'ID', renderCell: renderCellExpand, hide: true },
     ];
 
