@@ -21,10 +21,7 @@ export const NewPrButton: React.FC = () => {
             >
                 New pull request
             </Button>
-            <NewPrForm
-                open={open}
-                handleClose={handleClose}
-            />
+            <NewPrForm open={open} handleClose={handleClose} />
         </div>
     );
 };

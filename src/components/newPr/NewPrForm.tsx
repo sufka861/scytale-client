@@ -19,7 +19,7 @@ import {
 } from '@mui/material';
 import { useMutation, useQueryClient } from 'react-query';
 import axios from 'axios';
-import {API_PATH} from "../../constants";
+import { API_PATH } from '../../constants';
 
 interface Props {
     open: boolean;

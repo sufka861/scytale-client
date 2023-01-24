@@ -10,7 +10,7 @@ import { useQuery } from 'react-query';
 import axios from 'axios';
 import moment from 'moment-timezone';
 import renderCellExpand from './renderCellExpand';
-import {API_PATH, CLIENT_TIME_ZONE, STATUS_OPTIONS, TIME_FORMAT} from '../../constants';
+import { API_PATH, CLIENT_TIME_ZONE, STATUS_OPTIONS, TIME_FORMAT } from '../../constants';
 
 type Author = {
     firstName: string;
@@ -93,7 +93,7 @@ export const PrTable: React.FC = () => {
         { field: 'id', headerName: 'ID', renderCell: renderCellExpand, hide: true },
     ];
 
-    const rows : Array<PullRequest> = data?.data.map((row: PullRequest) => ({
+    const rows: Array<PullRequest> = data?.data.map((row: PullRequest) => ({
         title: row.title,
         description: row.description,
         author: row.author,

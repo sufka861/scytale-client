@@ -21,7 +21,7 @@ import { mainListItems } from './listItems';
 import { PrTable } from '../prTable/PrTable';
 import Image from 'mui-image';
 import { NewPrButton } from '../newPr/NewPrButton';
-import {SCYTALE_LOGO_URL, SUF_GITHUB_URL} from '../../constants/index';
+import { SCYTALE_LOGO_URL, SUF_GITHUB_URL } from '../../constants/index';
 function Copyright(props: any) {
     return (
         <Typography variant='body2' color='text.secondary' align='center' {...props}>
