@@ -19,6 +19,7 @@ import {
 } from '@mui/material';
 import { useMutation, useQueryClient } from 'react-query';
 import axios from 'axios';
+import {API_PATH} from "../../constants";
 
 interface Props {
     open: boolean;
@@ -41,7 +42,7 @@ export const NewPrForm: React.FC<Props> = ({ open, handleClose }) => {
 
     const addPr = (data: any) => {
         return axios
-            .post(`http://localhost:4000/prs`, data)
+            .post(`${API_PATH}/prs`, data)
             .then(function () {
                 reset(defaultValues);
             })
@@ -160,7 +161,6 @@ export const NewPrForm: React.FC<Props> = ({ open, handleClose }) => {
                             <RadioGroup
                                 row
                                 aria-labelledby='demo-row-radio-buttons-group-label'
-                                // defaultValue="open"
                                 {...field}
                             >
                                 <FormControlLabel value='Open' control={<Radio />} label='Open' />

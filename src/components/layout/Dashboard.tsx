@@ -21,13 +21,12 @@ import { mainListItems } from './listItems';
 import { PrTable } from '../prTable/PrTable';
 import Image from 'mui-image';
 import { NewPrButton } from '../newPr/NewPrButton';
-const scytaleImage =
-    'https://lh3.googleusercontent.com/p/AF1QipMJnK4VygkODh5YyOp5tMVPbrx0ik9qTpi-3Vqa=s1360-w1360-h1020';
+import {SCYTALE_LOGO_URL, SUF_GITHUB_URL} from '../../constants/index';
 function Copyright(props: any) {
     return (
         <Typography variant='body2' color='text.secondary' align='center' {...props}>
             {'Copyright © '}
-            <Link color='inherit' href='https://github.com/sufka861'>
+            <Link color='inherit' href={SUF_GITHUB_URL}>
                 Suf Karmon
             </Link>{' '}
             {new Date().getFullYear()}
@@ -123,7 +122,7 @@ function DashboardContent() {
                             noWrap
                             sx={{ flexGrow: 1 }}
                         >
-                            <Image src={scytaleImage} height='15%' width='15%' />
+                            <Image src={SCYTALE_LOGO_URL} height='15%' width='15%' />
                         </Typography>
                         <IconButton color='inherit'>
                             <Badge badgeContent={4} color='secondary'>

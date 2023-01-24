@@ -10,6 +10,7 @@ import { useQuery } from 'react-query';
 import axios from 'axios';
 import moment from 'moment-timezone';
 import renderCellExpand from './renderCellExpand';
+import {API_PATH, CLIENT_TIME_ZONE, STATUS_OPTIONS, TIME_FORMAT} from '../../constants';
 
 type Author = {
     firstName: string;
@@ -28,7 +29,7 @@ type PullRequest = {
 };
 
 const fetchPullRequests = async () => {
-    return axios.get('http://localhost:4000/prs');
+    return axios.get(`${API_PATH}/prs`);
 };
 
 export const PrTable: React.FC = () => {
@@ -71,9 +72,9 @@ export const PrTable: React.FC = () => {
             valueOptions: ['Open', 'Closed', 'Draft'],
             renderCell: (params: GridRenderCellParams) => {
                 const color =
-                    params.value == 'Open'
+                    params.value == STATUS_OPTIONS.OPEN
                         ? 'primary'
-                        : params.value == 'Closed'
+                        : params.value == STATUS_OPTIONS.CLOSED
                         ? 'success'
                         : 'default';
                 return (
@@ -96,7 +97,7 @@ export const PrTable: React.FC = () => {
         title: row.title,
         description: row.description,
         author: row.author,
-        createdAt: moment.tz(row.createdAt.toString(), 'Israel').format('YYYY-MM-DD HH:mm'),
+        createdAt: moment.tz(row.createdAt.toString(), CLIENT_TIME_ZONE).format(TIME_FORMAT),
         prNumber: row.prNumber,
         status: row.status,
         labels: row.labels,
