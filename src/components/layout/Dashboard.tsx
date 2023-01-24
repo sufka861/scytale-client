@@ -18,13 +18,10 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import {mainListItems} from './listItems';
-import {PrTable} from './PrTable';
-// import {PrForm} from './PrForm';
+import {PrTable} from '../prTable/PrTable';
 import Image from 'mui-image';
-import {Avatar} from '@mui/material';
-import scytaleImage from '../scytaleNameAndLogo.png';
-import {NewPrButton} from "./NewPrButton";
-
+import {NewPrButton} from "../newPr/NewPrButton";
+const scytaleImage = "https://lh3.googleusercontent.com/p/AF1QipMJnK4VygkODh5YyOp5tMVPbrx0ik9qTpi-3Vqa=s1360-w1360-h1020";
 function Copyright(props: any) {
     return (
         <Typography variant='body2' color='text.secondary' align='center' {...props}>
@@ -170,11 +167,10 @@ function DashboardContent() {
                         <Grid container spacing={3}>
                             <Grid item xs={12}>
                                 <Paper sx={{p: 4, display: 'flex', flexDirection: 'column'}}>
-                                    <Box component='span' sx={{pb: 2}}>
-                                        {/*<PrForm/>*/}
-                                        <NewPrButton />
-                                    </Box>
                                     <PrTable/>
+                                    <Grid container justifyContent="flex-start" sx={{pt: 4}}>
+                                        <NewPrButton/>
+                                    </Grid>
                                 </Paper>
                             </Grid>
                         </Grid>

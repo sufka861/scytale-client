@@ -13,8 +13,8 @@ export const NewPrButton: React.FC = () => {
     };
     return (
         <div>
-            <Button variant='contained' endIcon={<AddIcon/>} onClick={handleClickOpen}>
-                Create PR
+            <Button color = "success" variant='contained' endIcon={<AddIcon/>} onClick={handleClickOpen}>
+                New pull request
             </Button>
             <NewPrForm
                 open = {open}

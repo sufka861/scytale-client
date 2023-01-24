@@ -1,8 +1,6 @@
 import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
-import './App.css';
-import Dashboard from './components/Dashboard';
+import Dashboard from './components/layout/Dashboard';
 
 const queryClient = new QueryClient();
 
