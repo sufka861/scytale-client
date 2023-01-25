@@ -1,46 +1,65 @@
-# Getting Started with Create React App
+# Scytale Pull Request Client
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the Client side of the 'Scytale Pull Request Dashboard'!<br />
+It holds the UI of the system<br />
+Please make sure to have completed the ['Scyale-Server'](https://github.com/sufka861/scytale-server.git) README instructions before you start<br />
+Using the UI you will be able to list all of the 'saved' pull-reuests, filter, sort, and create new pull requests
 
-## Available Scripts
+## Install & Run
 
-In the project directory, you can run:
+1. Clone the project from [Git-Hub](https://github.com/sufka861/scytale-client.git)
+2. cd into the project folder
+    ```console
+    <YourLocalFolder>:~$ cd scytale-client
+    <YourLocalFolder>/scytale-client:~$
+    ```
+3. Use npm to install the dependencies specified in the package.json
+    ```console
+    npm install
+    ```
+4. To Start the app run:
+    ```console
+    npm start
+    ```
+    Notice: This is the staging environment and the server is configured to run on port 4000. So make sure the client app uses a different port.
+5. Open your browser with the URL:
+    ```console
+    http://localhost:3000/
+    ```
 
-### `npm start`
+## How to use
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+_Pull request table:_<br />
+&ensp; As you view the dashboard you are presented with the list of all pull-requests previously saved in the DB<br />
+&ensp; The pull requests are paginated to show 10 pull requests per page<br />
+&ensp; The pull requests are sorted by default from Old to New. You can scroll the pages to see them all.<br />
+&ensp; If the content of a field is too long for the table, hover over it to see the full content displayed<br />
+&ensp; The top of the table holds the name of each column<br />
+&ensp; When hovering over each name - You will see options allowing to sorting the table by this column<br />
+&ensp; You can also filter each row to show specific inputs, or hide the column<br />
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+_New Pull Request:_<br />
+&ensp; By clicking NEW PULL REQUEST, a dialog opens up containing a form to fill out the pull request details.<br />
+&ensp; You must fill all the required fields marked with \*<br />
+&ensp; The description you enter may be longer than the row resulting with multiple rows added accordingly<br />
+&ensp; Adding labels is done by typing your wanted label freely in the input, and pressing ENTER<br />
+&ensp; Each label can be deleted before submission by clicking the X to the right of the label<br />
+&ensp; If you exit the dialog before submitting, or do not enter all of the required fields, the form will not be sent<br />
+&ensp; If you enter the form again, your inputs will be remembered<br />
+&ensp; Only after the form is submitted successfully, the inputs will be refreshed<br />
+&ensp; Upon successful submission, the table of pull requests will be updated immediately<br />
 
-### `npm test`
+## Good to know
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. The date and time shown on each newly created pull request, is the local date and time of the clients browser<br />
+   The date stored in the DB is GMT+00:00 regardless of the clients browser time zone
+2. src/constants/index.tsx contains constant variables that are used across the system and can be changed when needed
+3. The UI layout is based on 'Material UI'
+4. Data fetching is optimized using 'react-query'
+5. Data posting is optimized using 'react-hook-form'
 
-### `npm run build`
+## Enjoy
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Feel free to play around and try for yourself
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+By: Suf Karmon
